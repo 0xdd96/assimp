@@ -533,7 +533,10 @@ void XFileParser::ParseDataObjectMeshNormals(Mesh *pMesh) {
             pMesh->mNormFaces[a] = Face();
             Face &face = pMesh->mNormFaces[a];
             for (unsigned int b = 0; b < numIndices; ++b) {
-                face.mIndices.push_back(ReadInt());
+                const int idx(ReadInt()); 
+                if (static_cast<unsigned int>(idx) < numNormals) { 
+                    face.mIndices.push_back(idx); 
+                }
             }
 
             TestForSeparator();
